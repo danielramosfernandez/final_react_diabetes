@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Asegúrate de que Routes está importado correctamente
+import { ValidationProvider } from './components/Validacion';
+import UserTable from './components/TablaUsuarios';
+import UserForm from './components/FormularioUsuarios';
+import Stats from './services/Stats';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ValidationProvider>
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li><a href="/">Usuarios</a></li>
+              <li><a href="/crear-usuario">Crear Usuario</a></li>
+              <li><a href="/estadisticas">Estadísticas</a></li>
+            </ul>
+          </nav>
+
+          {/* Reemplaza Switch por Routes */}
+          <Routes>
+            <Route path="/" element={<UserTable />} />
+            <Route path="/crear-usuario" element={<UserForm />} />
+            <Route path="/estadisticas" element={<Stats />} />
+          </Routes>
+        </div>
+      </Router>
+    </ValidationProvider>
   );
-}
+};
 
 export default App;
